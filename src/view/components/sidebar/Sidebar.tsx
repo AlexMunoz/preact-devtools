@@ -34,7 +34,9 @@ export function Sidebar() {
 				isOptional
 				getData={d => d.hooks}
 				checkEditable={data => data.canEditHooks}
-				onChange={(id, path, value) => emit("update-hook", { id, path, value })}
+				onChange={(id, path, value) => {
+					emit("update-hook", { id, index: 0, value });
+				}}
 				onCopy={onCopy}
 			/>
 			<PropsPanel
@@ -47,9 +49,6 @@ export function Sidebar() {
 				}
 				onCopy={onCopy}
 			/>
-			{/* {inspect != null && inspect.hooks && (
-					<SidebarPanel title="hooks" empty="None"></SidebarPanel>
-				)} */}
 		</Fragment>
 	);
 }
