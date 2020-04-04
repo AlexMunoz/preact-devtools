@@ -15,6 +15,7 @@ export type EmitterFn = (event: string, data: any) => void;
 export interface DevtoolEvents {
 	"update-prop": { id: ID; path: ObjPath; value: any };
 	"update-state": { id: ID; path: ObjPath; value: any };
+	"update-hook": { id: ID; path: ObjPath; value: any };
 	"update-context": { id: ID; path: ObjPath; value: any };
 	"force-update": ID;
 	"start-picker": null;

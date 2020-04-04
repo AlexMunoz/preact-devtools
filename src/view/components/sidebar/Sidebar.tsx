@@ -30,6 +30,14 @@ export function Sidebar() {
 				onCopy={onCopy}
 			/>
 			<PropsPanel
+				label="Hooks"
+				isOptional
+				getData={d => d.hooks}
+				checkEditable={data => data.canEditHooks}
+				onChange={(id, path, value) => emit("update-hook", { id, path, value })}
+				onCopy={onCopy}
+			/>
+			<PropsPanel
 				label="Context"
 				isOptional
 				getData={d => d.context}
