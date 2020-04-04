@@ -37,7 +37,6 @@ export function Sidebar() {
 				onChange={(id, path, value) => {
 					emit("update-hook", { id, index: 0, value });
 				}}
-				onCopy={onCopy}
 			/>
 			<PropsPanel
 				label="Context"
