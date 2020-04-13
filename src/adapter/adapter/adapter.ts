@@ -108,7 +108,6 @@ export function createAdapter(port: PortPageHook, renderer: Renderer) {
 	listen("update-hook", data => {
 		if (renderer.updateHook && data.meta) {
 			renderer.updateHook(data.id, data.meta.index, data.value);
-			inspect(data.id);
 		}
 	});
 
