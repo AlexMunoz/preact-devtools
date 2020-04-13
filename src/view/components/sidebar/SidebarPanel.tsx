@@ -9,11 +9,12 @@ export interface Props {
 	isEmpty?: boolean;
 	onCopy?: () => void;
 	children?: ComponentChildren;
+	testId?: string;
 }
 
 export function SidebarPanel(props: Props) {
 	return (
-		<div class={s.panel}>
+		<div class={s.panel} data-testid={props.testId}>
 			<header class={s.panelHeader}>
 				<h3 class={s.title}>{props.title}</h3>
 				{props.onCopy && props.children != null && (

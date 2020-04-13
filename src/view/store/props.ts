@@ -22,6 +22,7 @@ function parseInspectData(
 			path: ["root"],
 			type: "object",
 			value: null,
+			meta: null,
 		});
 
 		if (state.lastId !== v.id) {

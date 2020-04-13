@@ -15,7 +15,7 @@ export type EmitterFn = (event: string, data: any) => void;
 export interface DevtoolEvents {
 	"update-prop": { id: ID; path: ObjPath; value: any };
 	"update-state": { id: ID; path: ObjPath; value: any };
-	"update-hook": { id: ID; index: number; value: any };
+	"update-hook": { id: ID; value: any; meta: any };
 	"update-context": { id: ID; path: ObjPath; value: any };
 	"force-update": ID;
 	"start-picker": null;
@@ -132,7 +132,7 @@ export function createHook(port: PortPageHook): DevtoolsHook {
 
 			// currently we only support preact >= 10, later we can add another branch for major === 8
 			if (preactVersionMatch.major == 10) {
-				const renderer = createRenderer(port, config as any);
+				const renderer = createRenderer(port, config as any, options);
 				setupOptions(options, renderer, config as any);
 				return attachRenderer(renderer, {
 					renderReasons: !!config.Component,

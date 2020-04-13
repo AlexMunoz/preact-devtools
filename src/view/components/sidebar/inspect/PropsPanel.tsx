@@ -17,8 +17,9 @@ export interface Props {
 	checkEditable: (data: InspectData) => boolean;
 	getData(data: InspectData): any;
 	canAddNew?: boolean;
-	onChange: (id: ID, path: ObjPath, value: any) => void;
+	onChange: (id: ID, path: ObjPath, value: any, meta: any) => void;
 	onCopy?: (data: any) => void;
+	testId?: string;
 }
 
 export function PropsPanel(props: Props) {
@@ -37,7 +38,7 @@ export function PropsPanel(props: Props) {
 	const onChange = useCallback(
 		(value: any, path: ObjPath) => {
 			const key = path.slice(1);
-			props.onChange(inspect!.id, key, value);
+			props.onChange(inspect!.id, key, value, s.tree.$.get(path.join(".")));
 		},
 		[inspect],
 	);
@@ -52,6 +53,7 @@ export function PropsPanel(props: Props) {
 		<SidebarPanel
 			title={props.label}
 			empty="None"
+			testId={props.testId}
 			onCopy={() => {
 				if (props.onCopy && inspect != null && props.onCopy != null) {
 					props.onCopy(props.getData(inspect));

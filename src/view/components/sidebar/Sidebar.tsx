@@ -31,14 +31,16 @@ export function Sidebar() {
 			/>
 			<PropsPanel
 				label="Hooks"
+				testId="hooks-panel"
 				isOptional
 				getData={d => d.hooks}
 				checkEditable={data => data.canEditHooks}
-				onChange={(id, path, value) => {
-					// The update may have been triggered in a nested object like context
-					// objects. Therefore we retrieve the parent hook and trigger the
-					// update from there.
-					emit("update-hook", { id, index: 0, value });
+				onChange={(id, path, value, node) => {
+					emit("update-hook", {
+						id,
+						value,
+						meta: node != null ? node.meta : null,
+					});
 				}}
 			/>
 			<PropsPanel

@@ -14,7 +14,8 @@ export type PropDataType =
 	| "bigint"
 	| "vnode"
 	| "blob"
-	| "symbol";
+	| "symbol"
+	| "__meta__";
 
 export interface PropData {
 	id: string;
@@ -24,6 +25,7 @@ export interface PropData {
 	editable: boolean;
 	collapsable: boolean;
 	depth: number;
+	meta: any;
 	children: string[];
 }
 
@@ -52,6 +54,7 @@ export function parseProps(
 				collapsable: data.length > 0,
 				editable: false,
 				path,
+				meta: null,
 				value: data,
 				children,
 			}),
@@ -74,6 +77,7 @@ export function parseProps(
 				path,
 				value: "Set",
 				children: [],
+				meta: null,
 			}),
 		);
 	} else if (typeof data === "object") {
@@ -89,6 +93,7 @@ export function parseProps(
 					path,
 					value: data,
 					children: [],
+					meta: null,
 				}),
 			);
 		} else {
@@ -110,6 +115,7 @@ export function parseProps(
 						path,
 						value: data,
 						children: [],
+						meta: null,
 					}),
 				);
 			} else if (
@@ -129,6 +135,7 @@ export function parseProps(
 						path,
 						value: data,
 						children: [],
+						meta: null,
 					}),
 				);
 			} else if (
@@ -148,6 +155,7 @@ export function parseProps(
 						path,
 						value: data,
 						children: [],
+						meta: null,
 					}),
 				);
 			} else if (
@@ -167,6 +175,7 @@ export function parseProps(
 						path,
 						value: data,
 						children: [],
+						meta: null,
 					}),
 				);
 			} else if (
@@ -186,9 +195,17 @@ export function parseProps(
 						path,
 						value: data,
 						children: [],
+						meta: null,
 					}),
 				);
+			} else if (data.name === "__meta__") {
+				const res = parseProps(data.value, path, limit + 1, transform, out);
+				const node = res.get(path.join("."));
+				if (node) {
+					node.meta = data.meta;
+				}
 			} else {
+				// Check if
 				const node: PropData = {
 					depth,
 					id: pathStr,
@@ -198,6 +215,7 @@ export function parseProps(
 					path,
 					value: data,
 					children: [],
+					meta: null,
 				};
 				out.set(pathStr, node);
 
@@ -223,6 +241,7 @@ export function parseProps(
 				path,
 				value: data,
 				children: [],
+				meta: null,
 			}),
 		);
 	}
